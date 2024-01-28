@@ -3,9 +3,9 @@
 import {Disclosure} from '@headlessui/vue'
 
 const navigation = [
-    {name: 'Dashboard', href: '#', current: false},
-    {name: 'Labelling', href: '#', current: true},
-    {name: 'Generation', href: '#', current: false},
+    {name: 'Dashboard', href: '/', current: false},
+    {name: 'Labelling', href: '/label', current: false},
+    {name: 'Generation', href: '/generation', current: true},
 ]
 </script>
 
@@ -19,10 +19,11 @@ const navigation = [
 
                         <div class="hidden md:block">
                             <div class="flex items-baseline space-x-4">
-                                <a v-for="item in navigation" :key="item.name"
-                                   :aria-current="item.current ? 'page' : undefined"
-                                   :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']"
-                                   :href="item.href">{{ item.name }}</a>
+                                <NuxtLink v-for="item in navigation" :key="item.name"
+                                          :aria-current="item.current ? 'page' : undefined"
+                                          :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']"
+                                          :to="item.href">{{ item.name }}
+                                </NuxtLink>
                             </div>
                         </div>
                     </div>
@@ -32,7 +33,7 @@ const navigation = [
 
         <header class="bg-white shadow-sm">
             <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-                <h1 class="text-lg font-semibold leading-6 text-gray-900">Dashboard</h1>
+                <h1 class="text-lg font-semibold leading-6 text-gray-900">Dataset Generation</h1>
             </div>
         </header>
         <main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
