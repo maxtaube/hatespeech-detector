@@ -147,7 +147,7 @@ function getColoring(response: number) {
                 <div v-if="isLoading" class="animate-pulse relative w-[15rem] h-[15rem] bg-gray-300">
                     <p class="absolute top-1 left-2 text-gray-300 font-semibold text-sm">sending request ...</p>
                 </div>
-                <div v-else-if="data" class="mt-5">
+                <div v-else-if="data && !data?.error" class="mt-5">
                     <div :class="getColoring(parseInt(data.response))"
                          class="relative w-[15rem] h-[15rem] flex flex-col items-center justify-center">
                         <p class="absolute top-1 left-2 text-white font-semibold text-sm">Output Label</p>
@@ -155,6 +155,7 @@ function getColoring(response: number) {
                         <p class="font-medium text-lg text-white">{{ getLabel(parseInt(data.response)) }}</p>
                     </div>
                 </div>
+                <p v-if="data?.error" class="bg-red-600 inline-flex text-white py-3 px-5">{{data.error}}</p>
             </div>
         </main>
     </div>
