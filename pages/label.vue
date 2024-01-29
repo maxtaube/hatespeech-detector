@@ -32,6 +32,7 @@ async function getData() {
 
         if (response.ok) {
             data.value = await response.json();
+            console.log(data.value.response)
             console.log(data.value.response.length)
         } else {
             console.error('Fetch error:', response.statusText);

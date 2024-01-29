@@ -99,7 +99,7 @@ function pullModel() {
                         <label for="name" class="block text-xs font-medium text-gray-900">{{success ? 'URL set!' : 'Set Ollama Base Url'}}</label>
                         <input v-model="inputValue" type="text" name="name" id="name" class="focus:outline-none block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                placeholder="http://localhost:11434"
-                               :class="success ? 'bg-green-50' : ''"/>
+                               :class="success ? 'bg-green-50' : 'bg-white'"/>
                     </div>
                     <button :disabled="inputValue.length < 1" class="float-right mt-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" type="button"
                             @click="setOllamaUrl">
