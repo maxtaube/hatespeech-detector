@@ -95,7 +95,7 @@ function pullModel() {
                 <div class="mt-10">
                     <p class="my-3">Connect to an external Ollama Backend</p>
                     <div class="rounded-md bg-white px-3 pb-1.5 pt-2.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600"
-                    :class="success ? 'ring-2 ring-green-500 bg-green-50' : ''">
+                    :class="success ? 'ring-2 ring-green-500 !bg-green-50' : ''">
                         <label for="name" class="block text-xs font-medium text-gray-900">{{success ? 'URL set!' : 'Set Ollama Base Url'}}</label>
                         <input v-model="inputValue" type="text" name="name" id="name" class="focus:outline-none block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                placeholder="http://localhost:11434"
