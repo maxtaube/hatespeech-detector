@@ -7,6 +7,40 @@ const navigation = [
     {name: 'Labelling', href: '/label', current: false},
     {name: 'Generation', href: '/generation', current: false},
 ]
+
+const inputValue = ref('');
+const success = ref(false);
+
+async function setOllamaUrl() {
+    const ollamaBaseUrl = inputValue.value; // The new Ollama base URL
+
+    const response = await fetch('/api/setOllamaUrl', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Indicate that the request body is JSON
+        },
+        body: JSON.stringify({ ollamaBaseUrl }), // Convert the payload to a JSON string
+    });
+
+    if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+        success.value = true;
+    } else {
+        console.error('Fetch error:', response.statusText);
+    }
+}
+
+onActivated(() => {
+    success.value = false;
+});
+
+function pullModel() {
+    // get request
+    fetch('/api/pullModel', {
+        method: 'GET',
+    });
+}
 </script>
 
 <template>
@@ -57,6 +91,26 @@ const navigation = [
                         </div>
                     </NuxtLink>
                 </div>
+
+                <div class="mt-10">
+                    <p class="my-3">Connect to an external Ollama Backend</p>
+                    <div class="rounded-md bg-white px-3 pb-1.5 pt-2.5 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600"
+                    :class="success ? 'ring-2 ring-green-500 bg-green-50' : ''">
+                        <label for="name" class="block text-xs font-medium text-gray-900">{{success ? 'URL set!' : 'Set Ollama Base Url'}}</label>
+                        <input v-model="inputValue" type="text" name="name" id="name" class="focus:outline-none block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                               placeholder="http://localhost:11434"
+                               :class="success ? 'bg-green-50' : ''"/>
+                    </div>
+                    <button :disabled="inputValue.length < 1" class="float-right mt-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" type="button"
+                            @click="setOllamaUrl">
+                        Set Url
+                    </button>
+                </div>
+
+                <button class="float-right mt-1 mr-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" type="button"
+                        @click="pullModel">
+                    Pull Model
+                </button>
             </div>
         </main>
     </div>

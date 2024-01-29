@@ -32,6 +32,7 @@ async function getData() {
 
         if (response.ok) {
             data.value = await response.json();
+            console.log(data.value.response.length)
         } else {
             console.error('Fetch error:', response.statusText);
         }
@@ -100,6 +101,19 @@ function getColoring(response: number) {
     }
 }
 
+const ollamaUrl = ref('');
+
+async function fetchOllamaUrl() {
+    try {
+        const response = await fetch('/api/getOllamaUrl');
+        const data = await response.json();
+        ollamaUrl.value = data.ollamaBaseUrl;
+    } catch (error) {
+        console.error('Failed to fetch Ollama URL:', error);
+    }
+}
+
+onMounted(fetchOllamaUrl);
 </script>
 
 <template>
@@ -109,7 +123,6 @@ function getColoring(response: number) {
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
-
                         <div class="hidden md:block">
                             <div class="flex items-baseline space-x-4">
                                 <NuxtLink v-for="item in navigation" :key="item.name"
@@ -131,7 +144,8 @@ function getColoring(response: number) {
             </div>
         </header>
         <main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            <p class="text-gray-400">Make sure you have <code class="font-semibold bg-gray-200 px-2 py-1">dolphin-mistral:7b-v2.6-dpo-laser-q5_1</code> running locally, otherwise change the model (or url) in the <code class="font-semibold bg-gray-200 px-2 py-1">getLabel.ts</code> file!</p>
+            <p class="text-gray-400">Make sure you have <code class="font-semibold bg-gray-200 px-2 py-1">dolphin-mistral:7b-v2.6-dpo-laser-q5_1</code> running, otherwise change the model (or url) in the <code class="font-semibold bg-gray-200 px-2 py-1">getLabel.ts</code> file!</p>
+            <p class="text-gray-400 text-sm mt-1">{{ollamaUrl}}</p>
             <div>
                 <p class="mb-2 mt-6 font-medium">Input</p>
                 <textarea id="inputText" v-model="inputText" class="rounded-lg border border-gray-300 w-full p-5 focus:outline focus:outline-2 focus:outline-indigo-500" name="inputText"
@@ -152,7 +166,7 @@ function getColoring(response: number) {
                     <div :class="getColoring(parseInt(data.response))"
                          class="relative w-[15rem] h-[15rem] flex flex-col items-center justify-center">
                         <p class="absolute top-1 left-2 text-white font-semibold text-sm">Output Label</p>
-                        <p class=" font-semibold text-white text-[6rem]">{{ data.response }}</p>
+                        <p class=" font-semibold text-white text-[6rem]">{{ data.response.length > 10 ? '?' : data.response }}</p>
                         <p class="font-medium text-lg text-white">{{ getLabel(parseInt(data.response)) }}</p>
                     </div>
                 </div>

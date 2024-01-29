@@ -7,4 +7,8 @@ export const theme = {
             sans: ['Inter var', ..._fontFamily.sans],
         },
     },
+    plugins: [
+        // ...
+        require('@tailwindcss/forms'),
+    ],
 }
