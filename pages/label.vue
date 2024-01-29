@@ -131,8 +131,9 @@ function getColoring(response: number) {
             </div>
         </header>
         <main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <p class="text-gray-400">Make sure you have <code class="font-semibold bg-gray-200 px-2 py-1">dolphin-mistral:7b-v2.6-dpo-laser-q5_1</code> running locally, otherwise change the model (or url) in the <code class="font-semibold bg-gray-200 px-2 py-1">getLabel.ts</code> file!</p>
             <div>
-                <p class="mb-2 font-medium">Input</p>
+                <p class="mb-2 mt-6 font-medium">Input</p>
                 <textarea id="inputText" v-model="inputText" class="rounded-lg border border-gray-300 w-full p-5 focus:outline focus:outline-2 focus:outline-indigo-500" name="inputText"
                           placeholder="Example: People who are [RACE] are leeches and only good for one thing"
                           rows="10"/>
