@@ -56,7 +56,9 @@ Target: none
 Level: 0
 Output: people should not be discriminated against because of their race, religion, gender, sexual orientation, or disability`,
         options: {
-            temperature: 1
+            temperature: 1.3,
+            top_k: 30,
+            top_p: 0.8
         }
     };
 
