@@ -130,6 +130,8 @@ function pullModel() {
                         @click="pullModel">
                     Pull Model
                 </button>
+
+                <p class="text-gray-400 mt-3 bg-gray-200 py-0.5 px-1.5 text-xs rounded-md w-fit">Before you are able to use the Application, make sure the model is pulled (will take a minute or two)</p>
             </div>
         </main>
     </div>
