@@ -90,6 +90,25 @@ function pullModel() {
                             </div>
                         </div>
                     </NuxtLink>
+
+                    <!-- Generator -->
+                    <NuxtLink to="/generation">
+                        <div
+                            class="group overflow-hidden bg-white shadow hover:outline hover:outline-2 hover:outline-indigo-600">
+                            <div class="px-4 py-6 sm:px-6 inline-flex items-center">
+                                <div>
+                                    <h3 class="text-xl font-semibold leading-7 text-gray-900">
+                                        Hatespeech Dataset Generation
+                                    </h3>
+                                    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                                        Provide a target group and receive a Dataset of Hatespeech
+                                    </p>
+                                </div>
+                                <!--icon-->
+                                <ArrowRightIcon class="w-6 h-6 text-gray-600 ml-5 group-hover:text-indigo-500"/>
+                            </div>
+                        </div>
+                    </NuxtLink>
                 </div>
 
                 <div class="mt-10">

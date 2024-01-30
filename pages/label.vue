@@ -11,6 +11,7 @@ const navigation = [
 const isLoading = ref(false);
 const data = ref();
 const inputText = ref(''); // Ref to hold the textarea input
+const ollamaUrl = ref('');
 
 async function getData() {
     isLoading.value = true;
@@ -102,8 +103,6 @@ function getColoring(response: number) {
     }
 }
 
-const ollamaUrl = ref('');
-
 async function fetchOllamaUrl() {
     try {
         const response = await fetch('/api/getOllamaUrl');
@@ -118,7 +117,6 @@ onMounted(fetchOllamaUrl);
 </script>
 
 <template>
-
     <div class="min-h-full">
         <Disclosure v-slot="{ open }" as="nav" class="bg-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
