@@ -7,7 +7,7 @@ export default defineEventHandler(async () => {
 
     // simple http post request to ollama
     const ollamaPayload = {
-        model: "dolphin-mistral:7b-v2.6-dpo-laser-q6_K", // Specify the model you're using with Ollama
+        name: "dolphin-mistral:7b-v2.6-dpo-laser-q5_1", // Specify the model you're using with Ollama
     }
     const ollamaBaseUrl = process.env.OLLAMA_BASE_URL || 'http://localhost:11434'; // Fallback to a default value
     const ollamaResponse = await $fetch(`${ollamaBaseUrl}/api/pull`, {
@@ -16,8 +16,10 @@ export default defineEventHandler(async () => {
             'Content-Type': 'application/json', // Ensure the content type is set to JSON
         },
         body: ollamaPayload,
-    }).finally(() => {
+    }).then(() => {
         return true;
+    }).catch(() => {
+        return false;
     });
 
 

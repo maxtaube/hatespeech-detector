@@ -10,6 +10,7 @@ const navigation = [
 
 const inputValue = ref('');
 const success = ref(false);
+const modelstatus = ref('');
 
 async function setOllamaUrl() {
     const ollamaBaseUrl = inputValue.value; // The new Ollama base URL
@@ -31,15 +32,56 @@ async function setOllamaUrl() {
     }
 }
 
-onActivated(() => {
+async function resetOllamaUrl() {
+    const ollamaBaseUrl = 'http://localhost:11434'; // The new Ollama base URL
+
+    const response = await fetch('/api/setOllamaUrl', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Indicate that the request body is JSON
+        },
+        body: JSON.stringify({ ollamaBaseUrl }), // Convert the payload to a JSON string
+    }).finally(() => {
+        fetchOllamaUrl();
+    });
+
+    if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+        success.value = true;
+    } else {
+        console.error('Fetch error:', response.statusText);
+    }
+}
+
+onMounted(() => {
     success.value = false;
+    modelstatus.value = '';
+    fetchOllamaUrl();
 });
 
 function pullModel() {
+    modelstatus.value = 'pulling';
     // get request
     fetch('/api/pullModel', {
         method: 'GET',
-    });
+    }).then((response) => {
+        console.log(response)
+        modelstatus.value = 'pulled';
+    }).catch((error) => {
+        console.error('Fetch error:', error);
+        modelstatus.value = 'error';
+    })
+}
+
+async function fetchOllamaUrl() {
+    try {
+        const response = await fetch('/api/getOllamaUrl');
+        const data = await response.json();
+        inputValue.value = data.ollamaBaseUrl;
+    } catch (error) {
+        console.error('Failed to fetch Ollama URL:', error);
+    }
 }
 </script>
 
@@ -124,12 +166,18 @@ function pullModel() {
                             @click="setOllamaUrl">
                         Set Url
                     </button>
+                    <button :disabled="inputValue.length < 1" class="float-right mt-1 mr-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" type="button"
+                            @click="resetOllamaUrl">
+                        Reset Url
+                    </button>
                 </div>
 
                 <button class="float-right mt-1 mr-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" type="button"
                         @click="pullModel">
                     Pull Model
                 </button>
+
+                <p class="float-right text-xs text-gray-300">{{modelstatus}}</p>
 
                 <p class="text-gray-400 mt-3 bg-gray-200 py-0.5 px-1.5 text-xs rounded-md w-fit">Before you are able to use the Application, make sure the model is pulled (will take a minute or two)</p>
             </div>
