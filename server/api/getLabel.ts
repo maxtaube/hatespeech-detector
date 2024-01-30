@@ -89,9 +89,9 @@ Output: 0`,
 
         // Process and return the Ollama response
         return ollamaResponse;
-    } catch (error) {
+    } catch (error1) {
         // Log and return any errors that occur
-        console.error('Error communicating with Ollama:', error);
-        return {error: 'Error communicating with Ollama'};
+        console.error('Error communicating with Ollama:', error1);
+        return {error: 'Error communicating with Ollama', error1};
     }
 });
