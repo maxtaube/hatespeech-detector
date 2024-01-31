@@ -32,6 +32,7 @@ If you get a connection error, this is probably because you didn't connect the o
 - check if the ollama instance is running
 - check the console of the browser for detailed errors
 - make sure the correct model is pulled on the ollama instance (and finished. The model is a few GB in size)
+- pulling through the ui seems to sometimes have issues, ideally pull the model directly with ```ollama pull [modelname]```
 - you might have to run ```ollama serve``` to expose the api
 
 ---
