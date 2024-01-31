@@ -147,7 +147,7 @@ onMounted(fetchOllamaUrl);
             <p class="text-gray-400 text-sm mt-1">{{ollamaUrl}}</p>
             <div>
                 <p class="mb-2 mt-6 font-medium">Input</p>
-                <textarea id="inputText" v-model="inputText" class="rounded-lg border border-gray-300 w-full p-5 focus:outline focus:outline-2 focus:outline-indigo-500" name="inputText"
+                <textarea @keyup.enter="$event.target.blur();getData()" id="inputText" v-model="inputText" class="rounded-lg border border-gray-300 w-full p-5 focus:outline focus:outline-2 focus:outline-indigo-500" name="inputText"
                           placeholder="Example: People who are [RACE] are leeches and only good for one thing"
                           rows="10"/>
             </div>
